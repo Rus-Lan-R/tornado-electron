@@ -3,9 +3,6 @@ import sys
 
 from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler, Application
-import json
-import random
-import string
 
 # prevent ioloop exception on windows for python 3.8
 if sys.version_info.major >= 3 and sys.version_info.minor >= 8 and os_name == "nt":
@@ -14,39 +11,32 @@ if sys.version_info.major >= 3 and sys.version_info.minor >= 8 and os_name == "n
 
 # get port as argument
 PORT = sys.argv[1]
+# PORT = 8888
+
+
+data = {
+    "server": "http://127.0.0.1",
+    "port": PORT
+}
+
+
+class GetData(RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Content-Type', 'application/json')
+
+    def get(self):
+        response = dict()
+        response['data'] = data
+        self.write(response)
 
 
 def write_out(str):
     sys.stdout.write(str)
 
 
-class GetDataHandler(RequestHandler):
-    def set_default_headers(self):
-        self.set_header('Content-Type', 'application/json')
-
-    def get(self):
-        response = dict()
-        response['data'] = get_random_data()
-        self.write(response)
-
-
-def get_random_data():
-    arr = []
-    n = random.randrange(10, 50)
-    for i in range(0, n):
-        arr.append(generate_id())
-    return arr
-
-# function generating random item id
-
-
-def generate_id(size=12, chars=string.ascii_uppercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
-
-
 def make_app():
     return Application([
-        (r"/getData", GetDataHandler)
+        (r"/getData", GetData)
     ])
 
 
