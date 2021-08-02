@@ -2,9 +2,9 @@
   "name": "tornado-electron",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Rus-Lan-R/tornado-electron/issues"
   },
-  "homepage": "https://github.com/Rus-Lan-R/tornado-electron#readme"
+  "homepage": "https://github.com/Rus-Lan-R/tornado-electron#readme",
+  "devDependencies": {
+    "electron": "^13.1.7"
+  },
+  "dependencies": {
+    "electron-packager": "^15.3.0"
+  }
 }
